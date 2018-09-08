@@ -1,8 +1,18 @@
 package heuristics;
 
-public class HeuristicFactory {
+public enum HeuristicFactory implements Heuristic {
 
-    public Heuristic getHeuristic() {
-        return null;
-    }
+    DISTANCE {
+        @Override
+        public void calculate() {
+            System.out.println("DISTANCE");
+        }
+    },
+    MISPLACED {
+        @Override
+        public void calculate() {
+            System.out.println("MISPLACED");
+        }
+    };
+
 }
