@@ -1,5 +1,5 @@
 package heuristics;
 
 public interface Heuristic {
-    void calculate();
+    int calculate(int[][] start, int[][] end);
 }

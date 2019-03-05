@@ -1,45 +1,60 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import heuristics.HeuristicChoice;
+import movements.MovementChoice;
+import states.Board;
+import states.Node;
+
+import java.util.*;
 
 public class Puzzle {
-    private int size;
-    private int[][] tiles2DArray;
+    private Board goalState;
+    private HeuristicChoice heuristic;
+    private Node root;
+    private Queue<Node> frontier;
+    private Map<Integer, Node> explored;
+    private List<MovementChoice> movements;
 
-    //Constructor for no given input
-    public Puzzle (int size) {
-        this.size = size;
-        tiles2DArray = create();
-        //System.out.println(Arrays.deepToString(tiles2DArray));
+    public Puzzle (int[][] start, int[][] goal, HeuristicChoice heuristic) {
+        Board startState = new Board(start);
+        goalState = new Board(goal);
+        this.heuristic = heuristic;
+        root = new Node(startState, goalState, heuristic, null);
+        frontier = new PriorityQueue<>();
+        explored = new HashMap<>();
+        movements = new ArrayList<>();
+        for (MovementChoice move : MovementChoice.values()) {
+            movements.add(move);
+        }
     }
 
-     private int[][] create() {
-        List<Integer> numbers = new ArrayList<>();
-        for(int i = 0; i < size * size; i++) {
-            numbers.add(i);
-        }
-        Collections.shuffle(numbers);
-        while(!isSolvable(numbers)) {
-            Collections.shuffle(numbers);
-        }
-        int[][] temp = new int[size][size];
-        for (int rows = 0; rows < size; rows++)
-            for (int cols = 0; cols < size; cols++)
-                temp[rows][cols] = numbers.get(rows * size + cols);
-        return temp;
-    }
+    public Node solve() {
+        frontier.add(root);
 
-    public boolean isSolvable(List<Integer> shuffledList) {
-        int inversion = 0;
-        for(int i = 0; i < shuffledList.size() - 1; i++) {
-            for(int j = i+1; j < shuffledList.size(); j++) {
-                if(shuffledList.get(i) > shuffledList.get(j))
-                    inversion++;
+        while (!frontier.isEmpty()) {
+            Node current = frontier.poll();
+            explored.put(current.hashCode(), current);
+
+            if (isGoal(current)) {
+                return current;
+            }
+
+            for (MovementChoice movement : movements) {
+                Node next = new Node(movement.move(current.getBoard()), goalState, heuristic, current);
+                if (!explored.containsKey(next.hashCode())) {
+                    frontier.add(next);
+                }
             }
         }
-        System.out.println("Inversion: " + inversion);
-        return (inversion % 2 == 0);
+        return null;
     }
+
+    private boolean isGoal(Node current) {
+        return current.equals(goalState);
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
 }
