@@ -1,9 +1,6 @@
 # Sliding Puzzle
 
-Given a square grid where N = (n * n)-1 tiles, order the tiles from 1 to N.
-
-Usage
----
+Given a square grid where N = (n * n)-1 tiles and n = length of square, order the tiles from 1 to N.
 
 Overview (Informed Search)
 ---
