@@ -25,4 +25,4 @@ The state space varies depending on the size of the puzzle that is chosen to run
 
 N-Puzzle State Space Example
 ---
-An 8-puzzle instance has 9!/2 = 181,440 reachable states. Depending on the size of the puzzle, a formula can be used to evaluate how many states the state sapce will contain. A puzzle with a 4x4 grid (15-puzzle) will have 16 positions for tiles meaning there are 16! different states that are both reachable and unreachable. 16!/2 gives only the reachable or unreachable states which in the case of the 15-puzzle is 10,461,395,000,000 states.
+An 8-puzzle instance has 9!/2 = 181,440 reachable states. Depending on the size of the puzzle, a formula can be used to evaluate how many states the state sapce will contain. A puzzle with a 4x4 grid (15-puzzle) will have 16 positions for tiles meaning there are 16! different states that are both reachable and unreachable. 16!/2 gives only the reachable or unreachable states which in the case of the 15-puzzle is 10,461,394,944,000 states.
