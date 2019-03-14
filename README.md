@@ -2,6 +2,11 @@
 
 Given a square grid where N = (n * n)-1 tiles and n = length of square, order the tiles from 1 to N.
 
+Usage
+---
+Place all packages in a directory then ```cd``` into the directory and run:<br> 
+```javac main/*.java heuristics/*.java movements/*.java states/*.java``` then ```java main.Main```<br>
+
 Overview (Informed Search)
 ---
 Informed search algorithms show that if given certain criteria for a desired solution, or a set of rules to follow, it will steer the algorithm to find the solution. The purpose of informed search is to show how the solution was found. Given an initial state, informed search will expand the state to try to see if it can find a solution (goal state) within the given criteria also known as the heuristic function. The heuristic function is an estimate for the cost to the goal from the current state. 
