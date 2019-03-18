@@ -1,4 +1,4 @@
-# Sliding Puzzle
+# 8 Puzzle
 
 Given a square grid where N = (n * n)-1 tiles and n = length of square, order the tiles from 1 to N.
 
@@ -25,6 +25,6 @@ State Space
 ---
 The state space varies depending on the size of the puzzle that is chosen to run, but the state space for all n-puzzles is restricted by solvability. There are two disjoint sets for all n-puzzles. They are solvable and unsolvable states. Starting with a state that is solvable or unsolvable will limit the puzzle to that set of solutions. Before attempting to find a solution, it's important to test for solvability. Trying to find a solution from an initial unsolvable state will never yield a solution.
 
-N-Puzzle State Space Example
+8-Puzzle State Space Example
 ---
-An 8-puzzle instance has 9!/2 = 181,440 reachable states. Depending on the size of the puzzle, a formula can be used to evaluate how many states the state sapce will contain. A puzzle with a 4x4 grid (15-puzzle) will have 16 positions for tiles meaning there are 16! different states that are both reachable and unreachable. 16!/2 gives only the reachable or unreachable states which in the case of the 15-puzzle is 10,461,394,944,000 states.
+A puzzle with a 3x3 grid (8-puzzle) will have 9 positions for tiles meaning there are 9! (362,880) different states that are both reachable and unreachable. 9!/2 gives only the reachable or unreachable states which is 181,440 states.
