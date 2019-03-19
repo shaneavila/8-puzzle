@@ -17,8 +17,8 @@ Implementation
 
 Heuristics
 ---
-To ensure that A* finds an optimal solution, the heuristics need to be admissible. An admissible heuristic never overestimates the cost of the path. The heuristics used are misplaced tiles and the Manhattan distance.
-- Misplaced Tiles: the number of tiles that are not in the goal position
+To ensure that A* finds an optimal solution, the heuristics need to be admissible. An admissible heuristic never overestimates the cost of the path. The heuristics used are Hamming and Manhattan distance.
+- Hamming Distance: the number of tiles that are not in the goal position
 - Manhattan Distance: the sum of the distances of the tiles from their goal position
 
 State Space
