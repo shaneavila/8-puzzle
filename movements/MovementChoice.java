@@ -3,97 +3,66 @@ package movements;
 import states.Board;
 import states.Position;
 
+import java.util.Arrays;
+
 public enum MovementChoice implements Movement {
+
+//TODO make sure that position is CHANGED after the swap occurs
 
     DOWN {
         @Override
         public Board move(Board board) {
-            Position tempBlank = board.getBlank();
-            int row = tempBlank.getRow() + 1;
-            int col = tempBlank.getCol();
-            int[][] tempBoard = new int[3][3];
-
-            for(int i = 0; i < tempBoard.length; i++)
-                for(int j = 0; j < tempBoard.length; j++)
-                    tempBoard[i][j] = board.getBoard()[i][j];
-
-            if(!valid(row, col, tempBoard)) {
+            Position blank = board.getBlank();
+            if (!validBounds(blank.getRow() + 1, blank.getCol(), board.getBoard().length)) {
                 return board;
             }
-
-            tempBoard = swap(row,col,tempBlank,tempBoard);
-            return new Board(tempBoard);
+            return new Board(swap(blank.getRow() + 1, blank.getCol(), board));
         }
     },
     UP {
         @Override
         public Board move(Board board) {
-            Position tempBlank = board.getBlank();
-            int row = tempBlank.getRow() - 1;
-            int col = tempBlank.getCol();
-            int[][] tempBoard = new int[3][3];
-
-            for(int i = 0; i < tempBoard.length; i++)
-                for(int j = 0; j < tempBoard.length; j++)
-                    tempBoard[i][j] = board.getBoard()[i][j];
-
-            if(!valid(row, col, tempBoard)) {
-                return new Board(tempBoard);
+            Position blank = board.getBlank();
+            if (!validBounds(blank.getRow() - 1, blank.getCol(), board.getBoard().length)) {
+                return board;
             }
-
-            tempBoard = swap(row,col,tempBlank,tempBoard);
-            return new Board(tempBoard);
+            return new Board(swap(blank.getRow() - 1, blank.getCol(), board));
         }
     },
     LEFT {
+        @Override
         public Board move(Board board) {
-            Position tempBlank = board.getBlank();
-            int row = tempBlank.getRow();
-            int col = tempBlank.getCol() - 1;
-            int[][] tempBoard = new int[3][3];
-
-            for(int i = 0; i < tempBoard.length; i++)
-                for(int j = 0; j < tempBoard.length; j++)
-                    tempBoard[i][j] = board.getBoard()[i][j];
-
-            if(!valid(row, col, tempBoard)) {
-                return new Board(tempBoard);
+            Position blank = board.getBlank();
+            if (!validBounds(blank.getRow(), blank.getCol() - 1, board.getBoard().length)) {
+                return board;
             }
-
-            tempBoard = swap(row,col,tempBlank,tempBoard);
-            return new Board(tempBoard);
+            return new Board(swap(blank.getRow(), blank.getCol() - 1, board));
         }
     },
     RIGHT {
         @Override
         public Board move(Board board) {
-            Position tempBlank = board.getBlank();
-            int row = tempBlank.getRow();
-            int col = tempBlank.getCol() + 1;
-            int[][] tempBoard = new int[3][3];
-
-            for(int i = 0; i < tempBoard.length; i++)
-                for(int j = 0; j < tempBoard.length; j++)
-                    tempBoard[i][j] = board.getBoard()[i][j];
-
-            if(!valid(row, col, tempBoard)) {
-                return new Board(tempBoard);
+            Position blank = board.getBlank();
+            if (!validBounds(blank.getRow(), blank.getCol() + 1, board.getBoard().length)) {
+                return board;
             }
-
-            tempBoard = swap(row,col,tempBlank,tempBoard);
-            return new Board(tempBoard);
+            return new Board(swap(blank.getRow(), blank.getCol() + 1, board));
         }
     };
 
-    private static int[][] swap(int row, int col, Position tempBlank, int[][] board) {
-        int x = board[row][col];
-        board[row][col] = board[tempBlank.getRow()][tempBlank.getCol()];
-        board[tempBlank.getRow()][tempBlank.getCol()] = x;
-        return board;
+    private static int[] swap(int row, int col, Board board) {
+        Position blank = board.getBlank();
+        int[] arrayCopy = Arrays.copyOf(board.getBoard(), board.getBoard().length);
+        int squareLength = (int) Math.sqrt(arrayCopy.length);
+        int x = arrayCopy[row * squareLength + col];
+        arrayCopy[row * squareLength + col] = arrayCopy[blank.getRow() * squareLength + blank.getCol()];
+        arrayCopy[blank.getRow() * squareLength + blank.getCol()] = x;
+        return arrayCopy;
     }
 
-    private static boolean valid(int row, int col, int[][] board) {
-        return row >= 0 && col >= 0 && row < board.length && col < board.length;
+    private static boolean validBounds(int row, int col, int boardLength) {
+        int squareLength = (int) Math.sqrt(boardLength);
+        return row >= 0 && col >= 0 && row < squareLength && col < squareLength;
     }
 
 }

@@ -8,6 +8,7 @@ import states.Node;
 import java.util.*;
 
 public class Puzzle {
+
     private Board goalState;
     private HeuristicChoice heuristic;
     private Node root;
@@ -15,17 +16,15 @@ public class Puzzle {
     private Map<Integer, Node> explored;
     private List<MovementChoice> movements;
 
-    public Puzzle (int[][] start, int[][] goal, HeuristicChoice heuristic) {
+    //TODO Implement PriorityQueue to make sure that ties are FIFO and not arbitrary
+    public Puzzle(int[] start, int[] goal, HeuristicChoice heuristic) {
         Board startState = new Board(start);
         goalState = new Board(goal);
         this.heuristic = heuristic;
         root = new Node(startState, goalState, heuristic, null);
         frontier = new PriorityQueue<>();
         explored = new HashMap<>();
-        movements = new ArrayList<>();
-        for (MovementChoice move : MovementChoice.values()) {
-            movements.add(move);
-        }
+        movements = new ArrayList<>(Arrays.asList(MovementChoice.values()));
     }
 
     public Node solve() {
@@ -56,5 +55,4 @@ public class Puzzle {
     public Node getRoot() {
         return root;
     }
-
 }

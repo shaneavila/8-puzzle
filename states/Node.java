@@ -2,7 +2,9 @@ package states;
 
 import heuristics.Heuristic;
 
-public class Node implements Comparable<Node>{
+import java.util.Arrays;
+
+public class Node implements Comparable<Node> {
 
     private Board start;
     private Board goal;
@@ -16,14 +18,14 @@ public class Node implements Comparable<Node>{
         this.parent = parent;
     }
 
-    public int calcCost() {
-        return getCost() + heuristic.calculate(start.getBoard(), goal.getBoard());
-    }
-
     public int getCost() {
         if (parent == null)
             return 0;
         return parent.getCost() + 1;
+    }
+
+    public int calcCost() {
+        return getCost() + heuristic.calculate(start.getBoard(), goal.getBoard());
     }
 
     public Node getRoot() {
@@ -67,28 +69,9 @@ public class Node implements Comparable<Node>{
 
     @Override
     public String toString() {
-        int[][] start = this.start.getBoard();
-        int[][] goal = this.goal.getBoard();
-        String output = " start    end\n";
-        for(int i = 0; i < start.length; i++) {
-            output += "[";
-            for(int j = 0; j < start.length; j++) {
-                if(j != start.length - 1)
-                    output += start[i][j] + " ";
-                else
-                    output += start[i][j];
-            }
-            output += "] ";
-            output += "[";
-            for(int j = 0; j < goal.length; j++) {
-                if(j != goal.length - 1)
-                    output += goal[i][j] + " ";
-                else
-                    output += goal[i][j];
-            }
-            output += "]\n";
-        }
-        output += "cost = " + getCost() + " + " + heuristic.calculate(start,goal) + " = " + calcCost() + "\n";
+        int[] start = this.start.getBoard();
+        String output = "";
+        output += Arrays.toString(start);
         return output;
     }
 
