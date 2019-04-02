@@ -31,15 +31,15 @@ public class Puzzle {
         frontier.add(root);
 
         while (!frontier.isEmpty()) {
-            Node current = frontier.poll();
-            explored.put(current.hashCode(), current);
+            root = frontier.poll();
+            explored.put(root.hashCode(), root);
 
-            if (isGoal(current)) {
-                return current;
+            if (isGoal(root)) {
+                return root;
             }
 
             for (MovementChoice movement : movements) {
-                Node next = new Node(movement.move(current.getBoard()), goalState, heuristic, current);
+                Node next = new Node(movement.move(root.getBoard()), goalState, heuristic, root);
                 if (!explored.containsKey(next.hashCode())) {
                     frontier.add(next);
                 }
