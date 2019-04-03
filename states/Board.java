@@ -1,30 +1,30 @@
 package states;
 
+import java.util.Arrays;
+
 public class Board {
 
-    private int[][] board;
+    private int[] board;
     private Position blank;
 
-    public Board(int[][] board) {
-        this.board = new int[board.length][board.length];
+    public Board(int[] board) {
         initializeBoard(board);
-        updateBlank();
+        updateBlankPosition();
     }
 
-    private void initializeBoard(int[][] board) {
-        for(int i = 0; i < board.length; i++)
-            for(int j = 0; j < board.length; j++)
-                this.board[i][j] = board[i][j];
+    private void initializeBoard(int[] board) {
+        this.board = new int[board.length];
+        System.arraycopy(board, 0, this.board, 0, board.length);
     }
 
-    private void updateBlank() {
-        for(int i = 0; i < board.length; i++)
-            for(int j = 0; j < board.length; j++)
-                if(board[i][j] == 0)
-                    blank = new Position(i,j);
+    private void updateBlankPosition() {
+        int squareLength = (int) Math.sqrt(board.length);
+        for (int i = 0; i < board.length; i++)
+            if (board[i] == 0)
+                blank = new Position(i / squareLength, i % squareLength);
     }
 
-    public int[][] getBoard() {
+    public int[] getBoard() {
         return board;
     }
 
@@ -40,11 +40,7 @@ public class Board {
     @Override
     public String toString() {
         String output = "";
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board.length; j++) {
-                output += board[i][j];
-            }
-        }
+        output += Arrays.toString(board);
         return output;
     }
 }
