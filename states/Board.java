@@ -12,10 +12,6 @@ public class Board {
         updateBlankPosition();
     }
 
-//    public Board(Board startState, Board goalState) {
-//        this(startState, goalState, null);
-//    }
-
     private void initializeBoard(int[] board) {
         this.board = new int[board.length];
         System.arraycopy(board, 0, this.board, 0, board.length);
@@ -27,9 +23,6 @@ public class Board {
             if (board[i] == 0)
                 blank = new Position(i / squareLength, i % squareLength);
     }
-    /*
-     * Getters, Setters, & Override
-     */
 
     public int[] getBoard() {
         return board;
@@ -43,13 +36,6 @@ public class Board {
     public int hashCode() {
         return toString().hashCode();
     }
-
-//    @Override
-//    public int compareTo(Board o) {
-//        int current = calcCost();
-//        int temp = o.calcCost();
-//        return current - temp;
-//    }
 
     @Override
     public String toString() {
