@@ -24,21 +24,8 @@ public class Node implements Comparable<Node> {
         return parent.getCost() + 1;
     }
 
-    public int calcCost() {
+    private int calcCost() {
         return getCost() + heuristic.calculate(start.getBoard(), goal.getBoard());
-    }
-
-    public Node getRoot() {
-        if (parent.parent == null)
-            return parent;
-        return parent.getRoot();
-    }
-
-    public void getPath(Node solution) {
-        System.out.println(solution);
-        if (solution.parent == null)
-            return;
-        parent.getPath(solution.parent);
     }
 
     public Board getBoard() {
