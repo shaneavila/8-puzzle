@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 public enum MovementChoice implements Movement {
 
-//TODO make sure that position is CHANGED after the swap occurs
-
     DOWN {
         @Override
         public Board move(Board board) {

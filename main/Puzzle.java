@@ -16,7 +16,6 @@ public class Puzzle {
     private Map<Integer, Node> explored;
     private List<MovementChoice> movements;
 
-    //TODO Implement PriorityQueue to make sure that ties are FIFO and not arbitrary
     public Puzzle(int[] start, int[] goal, HeuristicChoice heuristic) {
         Board startState = new Board(start);
         goalState = new Board(goal);
@@ -29,15 +28,12 @@ public class Puzzle {
 
     public Node solve() {
         frontier.add(root);
-
         while (!frontier.isEmpty()) {
             root = frontier.poll();
             explored.put(root.hashCode(), root);
-
-            if (isGoal(root)) {
+            if (root.equals(goalState)) {
                 return root;
             }
-
             for (MovementChoice movement : movements) {
                 Node next = new Node(movement.move(root.getBoard()), goalState, heuristic, root);
                 if (!explored.containsKey(next.hashCode())) {
@@ -46,10 +42,6 @@ public class Puzzle {
             }
         }
         return null;
-    }
-
-    private boolean isGoal(Node current) {
-        return current.equals(goalState);
     }
 
     public Node getRoot() {
